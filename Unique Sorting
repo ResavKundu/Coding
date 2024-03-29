@@ -1,0 +1,86 @@
+import java.util.Scanner;
+
+public class UniqueSorting {
+    public static String swapCharacter(String str){
+        String evn="";   //abcd   //bdac
+        String odd="";
+        for(int i=0;i<str.length();i++){
+            if(i%2==0 ){
+                evn+=str.charAt(i);
+            }
+            else{
+                odd+=str.charAt(i);
+            }
+        }
+        return odd+evn;
+    }
+    public static String swapDigit(String str){
+        String evn="";
+        String odd="";       //1234    //1324
+        for(int i=0;i<str.length();i++){
+            int n=str.charAt(i)-0;
+            if(n%2==0){
+                evn+=str.charAt(i);
+            }
+            else{
+                odd+=str.charAt(i);
+            }
+        }
+        return odd+evn;
+        
+        
+    }
+    public static boolean onlyDigits(String str, int n) 
+    { 
+        for (int i = 0; i < n; i++) { 
+            if (str.charAt(i) < '0'|| str.charAt(i) > '9') { 
+                return false; 
+            } 
+        } 
+        return true; 
+    } 
+    public static boolean onlyCharacter(String str, int n) 
+    { 
+        return ((str != null) && (!str.equals(""))
+        && (str.matches("^[a-zA-Z]*$")));
+    } 
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+
+        int n=sc.nextInt();
+        String arr[]=new String[n];
+        for(int i=0;i<n;i++){
+          arr[i]=sc.next();
+        }
+        int count=0;
+        int count1=0;
+        String temp1="";
+        String temp2="";
+        for(int i=0;i<arr.length;i++){
+            if(onlyCharacter(arr[i],arr[i].length())){
+                System.out.println(swapCharacter(arr[i]));
+            }
+            else if(onlyDigits(arr[i],arr[i].length())){
+                System.out.println(swapDigit(arr[i]));
+            }
+            else
+            {
+                int j=0,x=0;
+                for(j=0;j<arr[i].length();j++){
+                    String str=arr[i].substring(j, arr[i].length());
+                    if(onlyDigits(str,str.length())){
+                        x++;
+                    }
+                }
+                if(onlyCharacter(arr[i].substring(0,x),arr[i].substring(0,x).length())){
+                    temp1=swapCharacter(arr[i].substring(0,x));
+                }
+                if(onlyDigits(arr[i].substring(x,arr[i].length()),arr[i].substring(x,arr[i].length()).length())){
+                    temp2=swapDigit(arr[i].substring(x,arr[i].length()));
+                }
+                System.out.println(temp1+temp2);
+            }
+        }
+    
+    }
+}
